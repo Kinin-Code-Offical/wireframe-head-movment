@@ -1,4 +1,5 @@
 import { Canvas } from '@react-three/fiber'
+import { OrbitControls } from '@react-three/drei'
 import { Suspense } from 'react'
 import WireframeHead from './WireframeHead'
 import { useMicroMotion } from '../hooks/useMicroMotion'
@@ -17,17 +18,24 @@ function Controllers() {
 export default function SceneRoot() {
   return (
     <Canvas
-      camera={{ position: [0, 0.05, 2.8], fov: 38 }}
+      camera={{ position: [0.38, 0.12, 2.65], fov: 42 }}
       gl={{ antialias: true, alpha: false }}
-      style={{ background: '#0a0a0f' }}
+      style={{ background: '#060610' }}
     >
-      <ambientLight intensity={0.15} />
-      <pointLight position={[2, 3, 2]} intensity={0.6} color="#4a9eff" />
-      <pointLight position={[-2, -1, 1]} intensity={0.25} color="#7b5ea7" />
       <Suspense fallback={null}>
         <Controllers />
         <WireframeHead />
       </Suspense>
+      <OrbitControls
+        enablePan={false}
+        enableZoom={false}
+        minPolarAngle={Math.PI * 0.28}
+        maxPolarAngle={Math.PI * 0.72}
+        minAzimuthAngle={-Math.PI * 0.45}
+        maxAzimuthAngle={Math.PI * 0.45}
+        dampingFactor={0.06}
+        enableDamping
+      />
     </Canvas>
   )
 }
